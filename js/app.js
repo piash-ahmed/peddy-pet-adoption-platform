@@ -23,8 +23,7 @@ const loadAllPets = async () => {
 
     data.pets.forEach((pet) => {
         const petInfoCard = document.createElement('div')
-
-
+        
         petInfoCard.innerHTML = `
         <div class="card border border-gray-200 p-4 md:p-4">
             <figure class="h-[160px]"><img class="h-full w-full object-cover rounded-lg" src=${pet.image} alt="Shoes" /></figure>
@@ -45,18 +44,27 @@ const loadAllPets = async () => {
             <div class="divider opacity-65"></div>
             <div class="flex items-center justify-center gap-2">
             <button class="btn px-5 hover:bg-[#0e79813b] hover:border-transparent"><img class="h-5 w-5" src="assets/icons/like.png" ></button>
-            <button class="btn px-5 hover:bg-[#0e79813b] hover:border-transparent">Adopt</button>
+            <button id=${pet.petId} onclick="addToAdopt('${pet.image}', ${pet.petId})" class="btn px-5 hover:bg-[#0e79813b] hover:border-transparent">Adopt</button>
             <button class="btn px-5 hover:bg-[#0e79813b] hover:border-transparent">Detail</button>
             </div>
-
             </div>
         </div>
         `
-
         allPetsContainer.appendChild(petInfoCard)
     })
-
-
-
 }
 loadAllPets()
+
+// Add to Adopt section
+const addToAdopt = (image, petId) => {
+    console.log(image);
+    const adoptedPetSection = document.getElementById('adopted-pets')
+    const adoptedPet = document.createElement('img')
+    adoptedPet.classList = 'w-30 inline-block rounded-lg'
+    adoptedPet.src = `${image}`
+
+    adoptedPetSection.append(adoptedPet)
+    // Disable btn
+    const adoptBtn = document.getElementById(petId)
+    adoptBtn.disabled = true
+}
