@@ -7,7 +7,7 @@ const loadCategories = async () => {
     data.categories.forEach((category) => {
         const categoryBtn = document.createElement('div')
         categoryBtn.innerHTML = `
-        <button class="btn px-10 py-7 lg:px-16 lg:py-8 rounded-lg text-lg lg:text-xl font-bold border-[#cfe4e6] hover:bg-[#0e79813b]"><img class="w-10 mr-2" src=${category.category_icon}> ${category.category}</button>
+        <button onclick="loadPetsByCategory('${category.category}')" class="btn px-10 py-7 lg:px-16 lg:py-8 rounded-lg text-lg lg:text-xl font-bold border-[#cfe4e6] hover:bg-[#0e79813b]"><img class="w-10 mr-2" src=${category.category_icon}> ${category.category}</button>
         `
         categoriesContainer.append(categoryBtn)
     })
@@ -18,11 +18,17 @@ loadCategories()
 const loadAllPets = async () => {
     const res = await fetch(`https://openapi.programming-hero.com/api/peddy/pets`)
     const data = await res.json()
+    displayPets(data.pets)
+}
+loadAllPets()
 
+// Display pets 
+const displayPets = (data) => {
     const allPetsContainer = document.getElementById('pets-container')
-
-    data.pets.forEach((pet) => {
+    allPetsContainer.innerHTML = ''
+    data.forEach((pet) => {
         const petInfoCard = document.createElement('div')
+        // console.log(pet);
         
         petInfoCard.innerHTML = `
         <div class="card border border-gray-200 p-4 md:p-4">
@@ -53,7 +59,6 @@ const loadAllPets = async () => {
         allPetsContainer.appendChild(petInfoCard)
     })
 }
-loadAllPets()
 
 // Add to Adopt section
 const addToAdopt = (image, petId) => {
@@ -68,3 +73,11 @@ const addToAdopt = (image, petId) => {
     const adoptBtn = document.getElementById(petId)
     adoptBtn.disabled = true
 }
+const loadPetsByCategory = async(category) => {
+    const url = `https://openapi.programming-hero.com/api/peddy/category/${category}`
+    const res = await fetch(url)
+    const data = await res.json()
+    console.log(data.data);
+    displayPets(data.data)
+}
+
