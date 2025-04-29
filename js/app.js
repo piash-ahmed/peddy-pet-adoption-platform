@@ -51,8 +51,8 @@ const displayPets = (data) => {
             Price: ${pet.price ? `${pet.price}$` : `Not Available`}</p>
             <div class="divider opacity-65"></div>
             <div class="flex items-center justify-center gap-2">
-            <button class="btn px-5 hover:bg-[#0e79813b] hover:border-transparent"><img class="h-5 w-5" src="assets/icons/like.png" ></button>
-            <button id=${pet.petId} onclick="addToAdopt('${pet.image}', ${pet.petId})" class="btn px-5 hover:bg-[#0e79813b] hover:border-transparent">Adopt</button>
+            <button onclick="addToAdopt('${pet.image}')" class="btn px-5 hover:bg-[#0e79813b] hover:border-transparent"><img class="h-5 w-5" src="assets/icons/like.png" ></button>
+            <button id=${pet.petId} class="btn px-5 hover:bg-[#0e79813b] hover:border-transparent">Adopt</button>
             <button onclick="detailsModal(${pet.petId})" class="btn px-5 hover:bg-[#0e79813b] hover:border-transparent">Detail</button>
             </div>
             </div>
@@ -63,16 +63,13 @@ const displayPets = (data) => {
 }
 
 // Add to Adopt section
-const addToAdopt = (image, petId) => {
+const addToAdopt = (image) => {
     const adoptedPetSection = document.getElementById('adopted-pets')
     const adoptedPet = document.createElement('img')
-    adoptedPet.classList = 'w-30 inline-block rounded-lg'
+    adoptedPet.classList = 'w-28 inline rounded-lg m-2'
     adoptedPet.src = `${image}`
 
     adoptedPetSection.append(adoptedPet)
-    // Disable btn
-    const adoptBtn = document.getElementById(petId)
-    adoptBtn.disabled = true
 }
 
 // Load pets by category dynamic query
@@ -126,9 +123,11 @@ const detailsModal = async (petId) => {
         </div>
         </div>
         <div class="divider opacity-65 my-1"></div>
-        <h3 class="font-bold mb-2 mt-4">Details Information</h3>
+        <h3 class="font-extrabold mb-2 mt-4">Details Information</h3>
         <p class="text-sm text-gray-700 mb-4">${petDetail.pet_details}</p>
     `
     const customModal = document.getElementById('customModal')
     customModal.showModal()
 }
+
+
