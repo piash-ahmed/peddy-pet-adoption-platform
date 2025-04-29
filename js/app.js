@@ -19,6 +19,9 @@ const loadAllPets = async () => {
     const res = await fetch(`https://openapi.programming-hero.com/api/peddy/pets`)
     const data = await res.json()
     displayPets(data.pets)
+
+
+
 }
 loadAllPets()
 
@@ -28,7 +31,6 @@ const displayPets = (data) => {
     allPetsContainer.innerHTML = ''
     data.forEach((pet) => {
         const petInfoCard = document.createElement('div')
-        // console.log(pet);
 
         petInfoCard.innerHTML = `
         <div class="card border border-gray-200 p-4 md:p-4">
@@ -78,8 +80,20 @@ const loadPetsByCategory = async (category) => {
     const url = `https://openapi.programming-hero.com/api/peddy/category/${category}`
     const res = await fetch(url)
     const data = await res.json()
-    console.log(data.data);
-    displayPets(data.data)
+
+    if (data.data.length === 0) {
+        const allPetsContainer = document.getElementById('pets-container')
+        allPetsContainer.classList.remove('grid')
+        allPetsContainer.classList.add('flex', 'flex-col', 'justify-center', 'items-center')
+        allPetsContainer.innerHTML = `
+            <img src="assets/images/error.webp">
+            <h2 class="text-xl md:text-2xl font-bold text-black mt-4">No Information Available</h2>
+            <p class="text-gray-700 w-5/6 mx-auto text-center">It is a long established fact that a reader will be distracted by the readable content of a page when looking at 
+            its layout. The point of using Lorem Ipsum is that it has a.</p>
+         `
+    } else {
+        displayPets(data.data)
+    }
 }
 
 // Show Details Modal when Detail button clicked
