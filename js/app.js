@@ -52,7 +52,7 @@ const displayPets = (data) => {
             <div class="divider opacity-65"></div>
             <div class="flex items-center justify-center gap-2">
             <button onclick="addToAdopt('${pet.image}')" class="btn px-5 hover:bg-[#0e79813b] hover:border-transparent"><img class="h-5 w-5" src="assets/icons/like.png" ></button>
-            <button id=${pet.petId} class="btn px-5 hover:bg-[#0e79813b] hover:border-transparent">Adopt</button>
+            <button onclick="adoptModal(${pet.petId})" id=${pet.petId} class="btn px-5 hover:bg-[#0e79813b] hover:border-transparent">Adopt</button>
             <button onclick="detailsModal(${pet.petId})" class="btn px-5 hover:bg-[#0e79813b] hover:border-transparent">Detail</button>
             </div>
             </div>
@@ -66,7 +66,7 @@ const displayPets = (data) => {
 const addToAdopt = (image) => {
     const adoptedPetSection = document.getElementById('adopted-pets')
     const adoptedPet = document.createElement('img')
-    adoptedPet.classList = 'w-28 inline rounded-lg m-2'
+    adoptedPet.classList = 'w-20 md:w-28 inline rounded-lg m-2'
     adoptedPet.src = `${image}`
 
     adoptedPetSection.append(adoptedPet)
@@ -126,8 +126,56 @@ const detailsModal = async (petId) => {
         <h3 class="font-extrabold mb-2 mt-4">Details Information</h3>
         <p class="text-sm text-gray-700 mb-4">${petDetail.pet_details}</p>
     `
-    const customModal = document.getElementById('customModal')
-    customModal.showModal()
+    const customDetailsModal = document.getElementById('customDetailsModal')
+    customDetailsModal.showModal()
+}
+
+// Show Adoption Modal when Adopt button clicked
+const adoptModal = (petId) => {
+    const customAdoptModal = document.getElementById('customAdoptModal')
+
+    // const modalContent = document.getElementById('modal-content')
+    const counter = document.getElementById('counter')
+
+    function countDown() {
+        let counterNumber = 4
+        const intervalId = setInterval(() => {
+            counterNumber--
+            counter.innerHTML = `<p class="text-4xl font-extrabold">${counterNumber}</p>`
+            if (counterNumber === 0) {
+                counter.innerHTML = ``
+                clearInterval(intervalId)
+                document.getElementById('closeBtn').click()
+
+                // Disable btn
+                const adoptBtn = document.getElementById(petId)
+                adoptBtn.innerText = 'Adopted'
+                adoptBtn.disabled = true
+            }
+        }, 1000)
+    }
+    countDown()
+
+
+    customAdoptModal.showModal()
 }
 
 
+// const adoptModal = () => {
+//     const customAdoptModal = document.createElement('dialog')
+//     customAdoptModal.classList = "modal modal-bottom sm:modal-middle"
+//     customAdoptModal.id = 'customAdoptModal'
+//     customAdoptModal.innerHTML = `
+//     <div id="modal-content" class="modal-box text-center flex flex-col justify-center">
+//             <img class="w-20 object-cover mx-auto" src="https://img.icons8.com/?size=64&id=43627&format=png" alt="">
+//             <h3 class="text-lg font-bold">Congratulations!</h3>
+//             <p class="py-4">Adoption Process is start for your Pet!</p>
+//             <div class="modal-action">
+//                 <form method="dialog">
+//                     <button class="btn">Close</button>
+//                 </form>
+//             </div>
+//         </div>
+//     `
+//     customAdoptModal.showModal()
+// }

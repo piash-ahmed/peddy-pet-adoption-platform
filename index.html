@@ -97,15 +97,14 @@
             </article>
             <!-- Adopted pet images -->
             <aside id="adopted-pets"
-                class="border border-gray-200 rounded-lg h-[200px] lg:h-[570px] col-span-3 lg:col-span-1 p-3 overflow-hidden">
+                class="border border-gray-200 rounded-lg h-[200px] lg:h-[570px] col-span-3 lg:col-span-1 p-5 md:p-3 overflow-hidden">
 
             </aside>
         </main>
     </main>
 
     <!-- Details Modal -->
-    <!-- Open the modal using ID.showModal() method -->
-    <dialog id="customModal" class="modal modal-middle p-8 md:p-0">
+    <dialog id="customDetailsModal" class="modal modal-middle p-8 md:p-0">
         <div class="modal-box rounded-lg">
             <div id="modal-content">
 
@@ -114,6 +113,24 @@
                 <button
                     class="btn btn-block bg-[#e7f2f2] border border-[#bcdadb] text-[#0E7A81] font-extrabold">Cancel</button>
             </form>
+        </div>
+    </dialog>
+
+    <!-- Adopt Modal -->
+    <dialog id="customAdoptModal" class="modal modal-bottom sm:modal-middle p-8">
+        <div id="modal-content" class="modal-box py-2 text-center flex flex-col justify-center rounded-lg">
+            <img class="w-14 md:w-20 object-cover mx-auto" src="https://img.icons8.com/?size=64&id=43627&format=png"
+                alt="">
+            <h3 class="text-lg font-bold">Congratulations!</h3>
+            <p class="py-4">Adoption Process is start for your Pet!</p>
+            <div id="counter">
+
+            </div>
+            <div class="modal-action">
+                <form method="dialog">
+                    <button id="closeBtn" class=""></button>
+                </form>
+            </div>
         </div>
     </dialog>
 
