@@ -22,19 +22,24 @@ const loadAllPets = async () => {
 }
 loadAllPets()
 
+ 
+
 // Display pets 
 const displayPets = (data) => {
     const allPetsContainer = document.getElementById('pets-container')
     allPetsContainer.innerHTML = ''
 
-    // Data sorting by price
-    const sortedData = data.sort((a, b) => {
-        if (a.price === undefined) return 1;
-        if (b.price === undefined) return -1;
-        return a.price - b.price;
-    });
+    document.getElementById('sortBtn').addEventListener('click', () => {
+        const sortedData = data.sort((a, b) => {
+            if (a.price === undefined) return 1;
+            if (b.price === undefined) return -1;
+            return a.price - b.price;
+        });
+        displayPets(sortedData)
+    })
 
-    sortedData.forEach((pet) => {
+    
+    data.forEach((pet) => {
         const petInfoCard = document.createElement('div')
 
         petInfoCard.innerHTML = `
