@@ -19,9 +19,6 @@ const loadAllPets = async () => {
     const res = await fetch(`https://openapi.programming-hero.com/api/peddy/pets`)
     const data = await res.json()
     displayPets(data.pets)
-
-
-
 }
 loadAllPets()
 
@@ -29,7 +26,15 @@ loadAllPets()
 const displayPets = (data) => {
     const allPetsContainer = document.getElementById('pets-container')
     allPetsContainer.innerHTML = ''
-    data.forEach((pet) => {
+
+    // Data sorting by price
+    const sortedData = data.sort((a, b) => {
+        if (a.price === undefined) return 1;
+        if (b.price === undefined) return -1;
+        return a.price - b.price;
+    });
+
+    sortedData.forEach((pet) => {
         const petInfoCard = document.createElement('div')
 
         petInfoCard.innerHTML = `
@@ -160,22 +165,3 @@ const adoptModal = (petId) => {
     customAdoptModal.showModal()
 }
 
-
-// const adoptModal = () => {
-//     const customAdoptModal = document.createElement('dialog')
-//     customAdoptModal.classList = "modal modal-bottom sm:modal-middle"
-//     customAdoptModal.id = 'customAdoptModal'
-//     customAdoptModal.innerHTML = `
-//     <div id="modal-content" class="modal-box text-center flex flex-col justify-center">
-//             <img class="w-20 object-cover mx-auto" src="https://img.icons8.com/?size=64&id=43627&format=png" alt="">
-//             <h3 class="text-lg font-bold">Congratulations!</h3>
-//             <p class="py-4">Adoption Process is start for your Pet!</p>
-//             <div class="modal-action">
-//                 <form method="dialog">
-//                     <button class="btn">Close</button>
-//                 </form>
-//             </div>
-//         </div>
-//     `
-//     customAdoptModal.showModal()
-// }
